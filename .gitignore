@@ -1,0 +1,28 @@
+# Dependencias y resultados
+node_modules/
+dist/
+coverage/
+
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Sistema y editores
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Archivos locales del tutor/IA
+AGENTS.md
+docs/
+STUDY-CARDS.local.md
+WORKSPACE-START-HERE.local.md
+.agents/
+.codex/
