@@ -7,6 +7,19 @@ export async function insertTag({ id, name, userId }) {
   );
 }
 
+export async function countTagsOwnedByUser({ ids, userId }) {
+  const placeholders = ids.map(() => '?').join(', ');
+
+  const [rows] = await pool.execute(
+    `SELECT id
+     FROM tags
+     WHERE user_id = ? AND id IN (${placeholders})`,
+    [userId, ...ids],
+  );
+
+  return rows.length;
+}
+
 export async function findTagsByUserId(userId) {
   const [rows] = await pool.execute(
     `SELECT id, name

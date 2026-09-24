@@ -19,6 +19,15 @@ export async function findCategoriesByUserId(userId) {
   return rows;
 }
 
+export async function categoryBelongsToUser({ id, userId }) {
+  const [rows] = await pool.execute(
+    'SELECT id FROM categories WHERE id = ? AND user_id = ?',
+    [id, userId],
+  );
+
+  return rows.length > 0;
+}
+
 export async function findCategoryById({ id, userId }) {
   const [rows] = await pool.execute(
     `SELECT id, name
