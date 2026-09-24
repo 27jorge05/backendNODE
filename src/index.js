@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
 import categoryRoutes from './routes/category.routes.js';
 import tagRoutes from './routes/tag.routes.js';
@@ -8,6 +9,12 @@ import errorHandler from './middlewares/error.middleware.js';
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 3000);
+
+app.use(
+  cors({
+    origin: ['http://localhost:5173'],
+  }),
+);
 
 app.use(express.json());
 

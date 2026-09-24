@@ -1,3 +1,19 @@
+import { randomUUID } from 'node:crypto';
+import pool from '../db/connection.js';
+import {
+  insertTask,
+  updateTask,
+  updateTaskStatus,
+  replaceTaskTags,
+  deleteTask,
+  findTasksByUserId,
+  findTaskById,
+  findTagsByTaskIds,
+} from '../db/task.queries.js';
+import { categoryBelongsToUser } from '../db/category.queries.js';
+import { countTagsOwnedByUser } from '../db/tag.queries.js';
+import { decorateTask } from '../decorators/task.decorator.js';
+
 async function buildTaskResponse(id, userId) {
     const task = await findTaskById({ id, userId });
 
