@@ -6,3 +6,13 @@ export async function insertUser({ id, name, email, passwordHash }) {
     [id, name, email, passwordHash],
   );
 }
+export async function findUserByEmail(email) {
+  const [rows] = await pool.execute(
+    `SELECT id, name, email, password
+     FROM users
+     WHERE email = ?`,
+    [email],
+  );
+
+  return rows[0] ?? null;
+}
