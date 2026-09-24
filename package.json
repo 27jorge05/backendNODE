@@ -9,7 +9,9 @@
     "start": "node --env-file=.env src/index.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
+    "joi": "^18.2.9",
     "mysql2": "^3.24.4"
   }
 }
