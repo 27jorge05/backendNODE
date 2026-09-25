@@ -1,7 +1,13 @@
 import express from 'express';
+import authRoutes from './routes/auth.routes.js';
+import errorHandler from './middlewares/error.middleware.js';
 
 const app = express();
 const PORT = Number(process.env.PORT ?? 3000);
+
+app.use(express.json());
+
+app.use('/api/v1/auth', authRoutes);
 
 app.use((req, res) => {
   res.status(404).json({
@@ -10,6 +16,8 @@ app.use((req, res) => {
     },
   });
 });
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Backend To-Do List disponible en http://localhost:${PORT}`);
