@@ -8,7 +8,7 @@ import {
 } from '../db/category.queries.js';
 import { decorateCategory } from '../decorators/category.decorator.js';
 
-export async function createCategory(req, res, next) {
+export async function store(req, res, next) {
   const userId = req.auth.userId;
   const { name } = req.body;
   const id = randomUUID();
@@ -34,7 +34,7 @@ export async function createCategory(req, res, next) {
   }
 }
 
-export async function listCategories(req, res) {
+export async function index(req, res) {
   const categories = await findCategoriesByUserId(req.auth.userId);
 
   return res.status(200).json({
@@ -44,7 +44,7 @@ export async function listCategories(req, res) {
   });
 }
 
-export async function getCategory(req, res) {
+export async function show(req, res) {
   const category = await findCategoryById({
     id: req.params.id,
     userId: req.auth.userId,
@@ -65,7 +65,7 @@ export async function getCategory(req, res) {
   });
 }
 
-export async function editCategory(req, res, next) {
+export async function update(req, res, next) {
   const id = req.params.id;
   const userId = req.auth.userId;
   const { name } = req.body;
@@ -111,7 +111,7 @@ export async function editCategory(req, res, next) {
   }
 }
 
-export async function removeCategory(req, res, next) {
+export async function destroy(req, res, next) {
   try {
     const affectedRows = await deleteCategory({
       id: req.params.id,
