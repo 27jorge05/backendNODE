@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
-  createCategory,
-  listCategories,
-  getCategory,
-  editCategory,
-  removeCategory,
+  store,
+  index,
+  show,
+  update,
+  destroy,
 } from '../controllers/category.controller.js';
 import {
   categoryBodySchema,
@@ -55,10 +55,10 @@ function validateCategoryBody(req, res, next) {
   return next();
 }
 
-router.post('/', validateCategoryBody, createCategory);
-router.get('/', listCategories);
-router.get('/:id', getCategory);
-router.patch('/:id', validateCategoryBody, editCategory);
-router.delete('/:id', removeCategory);
+router.post('/', validateCategoryBody, store);
+router.get('/', index);
+router.get('/:id', show);
+router.patch('/:id', validateCategoryBody, update);
+router.delete('/:id', destroy);
 
 export default router;

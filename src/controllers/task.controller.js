@@ -26,7 +26,7 @@ async function buildTaskResponse(id, userId) {
     return decorateTask(task, tags);
 }
 
-export async function createTask(req, res, next) {
+export async function store(req, res, next) {
     const userId = req.auth.userId;
     const { title, description, status, categoryId, tagIds } = req.body;
 
@@ -86,7 +86,7 @@ export async function createTask(req, res, next) {
     });
 }
 
-export async function listTasks(req, res) {
+export async function index(req, res) {
     const userId = req.auth.userId;
     const tasks = await findTasksByUserId(userId);
 
@@ -114,7 +114,7 @@ export async function listTasks(req, res) {
     });
 }
 
-export async function getTask(req, res) {
+export async function show(req, res) {
     const task = await buildTaskResponse(req.params.id, req.auth.userId);
 
     if (!task) {
@@ -128,7 +128,7 @@ export async function getTask(req, res) {
     return res.status(200).json({ data: { task } });
 }
 
-export async function editTask(req, res, next) {
+export async function update(req, res, next) {
     const id = req.params.id;
     const userId = req.auth.userId;
     const body = req.body;
@@ -202,7 +202,7 @@ export async function editTask(req, res, next) {
     return res.status(200).json({ data: { task } });
 }
 
-export async function setTaskStatus(req, res, next) {
+export async function updateStatus(req, res, next) {
     const { status } = req.body;
     const affectedRows = await updateTaskStatus({
         id: req.params.id,
@@ -223,7 +223,7 @@ export async function setTaskStatus(req, res, next) {
     return res.status(200).json({ data: { task } });
 }
 
-export async function removeTask(req, res, next) {
+export async function destroy(req, res, next) {
     try {
         const affectedRows = await deleteTask({
             id: req.params.id,

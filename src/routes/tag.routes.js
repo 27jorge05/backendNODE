@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
-  createTag,
-  listTags,
-  getTag,
-  editTag,
-  removeTag,
+  store,
+  index,
+  show,
+  update,
+  destroy,
 } from '../controllers/tag.controller.js';
 import {
   tagBodySchema,
@@ -54,10 +54,10 @@ function validateTagBody(req, res, next) {
   return next();
 }
 
-router.post('/', validateTagBody, createTag);
-router.get('/', listTags);
-router.get('/:id', getTag);
-router.patch('/:id', validateTagBody, editTag);
-router.delete('/:id', removeTag);
+router.post('/', validateTagBody, store);
+router.get('/', index);
+router.get('/:id', show);
+router.patch('/:id', validateTagBody, update);
+router.delete('/:id', destroy);
 
 export default router;

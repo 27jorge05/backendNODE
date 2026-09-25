@@ -8,7 +8,7 @@ import {
 } from '../db/tag.queries.js';
 import { decorateTag } from '../decorators/tag.decorator.js';
 
-export async function createTag(req, res, next) {
+export async function store(req, res, next) {
   const userId = req.auth.userId;
   const { name } = req.body;
   const id = randomUUID();
@@ -34,7 +34,7 @@ export async function createTag(req, res, next) {
   }
 }
 
-export async function listTags(req, res) {
+export async function index(req, res) {
   const tags = await findTagsByUserId(req.auth.userId);
 
   return res.status(200).json({
@@ -44,7 +44,7 @@ export async function listTags(req, res) {
   });
 }
 
-export async function getTag(req, res) {
+export async function show(req, res) {
   const tag = await findTagById({
     id: req.params.id,
     userId: req.auth.userId,
@@ -65,7 +65,7 @@ export async function getTag(req, res) {
   });
 }
 
-export async function editTag(req, res, next) {
+export async function update(req, res, next) {
   const id = req.params.id;
   const userId = req.auth.userId;
   const { name } = req.body;
@@ -111,7 +111,7 @@ export async function editTag(req, res, next) {
   }
 }
 
-export async function removeTag(req, res, next) {
+export async function destroy(req, res, next) {
   try {
     const affectedRows = await deleteTag({
       id: req.params.id,

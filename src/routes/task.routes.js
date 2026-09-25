@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import {
-  createTask,
-  listTasks,
-  getTask,
-  editTask,
-  setTaskStatus,
-  removeTask,
+  store,
+  index,
+  show,
+  update,
+  updateStatus,
+  destroy,
 } from '../controllers/task.controller.js';
 import {
   taskCreateSchema,
@@ -59,11 +59,11 @@ function validateSchema(schema) {
   };
 }
 
-router.post('/', validateSchema(taskCreateSchema), createTask);
-router.get('/', listTasks);
-router.get('/:id', getTask);
-router.patch('/:id', validateSchema(taskUpdateSchema), editTask);
-router.patch('/:id/status', validateSchema(taskStatusSchema), setTaskStatus);
-router.delete('/:id', removeTask);
+router.post('/', validateSchema(taskCreateSchema), store);
+router.get('/', index);
+router.get('/:id', show);
+router.patch('/:id', validateSchema(taskUpdateSchema), update);
+router.patch('/:id/status', validateSchema(taskStatusSchema), updateStatus);
+router.delete('/:id', destroy);
 
 export default router;
